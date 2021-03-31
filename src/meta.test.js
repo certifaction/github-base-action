@@ -26,6 +26,7 @@ test("main branch", () => {
     sha: "abcd123456789",
   };
   expect(meta("foobar", context, "main")).toStrictEqual({
+    push: true,
     version: "sha-abcd123",
     tags: ["foobar:sha-abcd123", "foobar:latest", "foobar:dev"],
   });
@@ -37,6 +38,7 @@ test("pr branch", () => {
     sha: "abcd123456789",
   };
   expect(meta("foobar", context, "main")).toStrictEqual({
+    push: false,
     version: "sha-abcd123",
     tags: [
       "foobar:sha-abcd123",
@@ -52,6 +54,7 @@ test("pull refs", () => {
     sha: "abcd123456789",
   };
   expect(meta("foobar", context, "main")).toStrictEqual({
+    push: false,
     version: "sha-abcd123",
     tags: ["foobar:sha-abcd123", "foobar:latest", "foobar:pr-3"],
   });
@@ -63,6 +66,7 @@ test("prerelease", () => {
     sha: "abcd123456789",
   };
   expect(meta("foobar", context, "main")).toStrictEqual({
+    push: true,
     version: "1.2.3-rc.1",
     tags: [
       "foobar:1.2.3-rc.1",
@@ -79,6 +83,7 @@ test("erelease", () => {
     sha: "abcd123456789",
   };
   expect(meta("foobar", context, "main")).toStrictEqual({
+    push: true,
     version: "1.2.3",
     tags: [
       "foobar:1.2.3",

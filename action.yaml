@@ -20,3 +20,5 @@ outputs:
     description: 'Generated Docker tags'
   labels:
     description: 'Generated Docker labels'
+  push:
+    description: 'True if the image must be pushed'

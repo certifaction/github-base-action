@@ -13,12 +13,13 @@ function meta(image, context, default_branche) {
   const slug = slugrefs(context.ref);
   const sha = `sha-${context.sha.substr(0, 7)}`;
 
+  let version = sha;
+  let push = false;
+
   const partial = [];
   partial.push("latest");
 
   if (/^refs\/tags\//.test(context.ref)) {
-    version = sha;
-
     const sver = semver.parse(slug, {
       includePrerelease: true,
     });
@@ -39,14 +40,15 @@ function meta(image, context, default_branche) {
       } else {
         partial.push("production");
       }
+
+      push = true;
     }
   } else if (/^refs\/pull\//.test(context.ref)) {
-    version = sha;
     partial.push("pr-" + slug);
   } else if (/^refs\/heads\//.test(context.ref)) {
-    version = sha;
     if (slug === default_branche) {
       partial.push("dev");
+      push = true;
     } else {
       partial.push(slug);
     }
@@ -64,6 +66,7 @@ function meta(image, context, default_branche) {
   return {
     version: version,
     tags: tags,
+    push: push,
   };
 }
 
