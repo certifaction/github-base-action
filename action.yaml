@@ -9,6 +9,9 @@ runs:
   main: 'dist/index.js'
 
 inputs:
+  token:
+    description: 'The Github token to access the repository'
+    required: true
   image:
     description: 'The name of the Docker image to use as base name for tags'
     required: true

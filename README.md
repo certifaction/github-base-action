@@ -9,6 +9,10 @@ cut and paste in our workflow definitions.
 
 ## Inputs
 
+### `token`
+
+**Required** The github token to access the repository
+
 ### `image`
 
 **Required** The docker image name
