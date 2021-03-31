@@ -1,0 +1,36 @@
+{
+  "name": "github-base-action",
+  "version": "1.0.0",
+  "description": "Certifaction base GitHub Action",
+  "main": "index.js",
+  "scripts": {
+    "build": "ncc build",
+    "test": "jest",
+    "format": "prettier --write src/*.js",
+    "format-check": "prettier --check src/*.js",
+    "pre-checkin": "yarn run format && yarn run build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/certifaction/github-base-action.git"
+  },
+  "keywords": [
+    "actions",
+    "docker",
+    "meta",
+    "tag",
+    "label"
+  ],
+  "author": "Certifaction",
+  "license": "MIT",
+  "dependencies": {
+    "@actions/core": "^1.2.6",
+    "@actions/github": "^4.0.0",
+    "semver": "^7.3.4"
+  },
+  "devDependencies": {
+    "@vercel/ncc": "^0.24.1",
+    "jest": "^26.6.3",
+    "prettier": "2.2.1"
+  }
+}
