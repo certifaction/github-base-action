@@ -46,6 +46,7 @@ docker-push:
         uses: actions/checkout@v2
 
       - name: Certifaction base action
+        uses: certifaction/github-base-action@v0
         id: base-action
         with:
           image: your-image-name
