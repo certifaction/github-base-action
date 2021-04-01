@@ -46,11 +46,10 @@ function meta(image, context, default_branch) {
   } else if (/^refs\/pull\//.test(context.ref)) {
     partial.push("pr-" + slug);
   } else if (/^refs\/heads\//.test(context.ref)) {
+    partial.push(slug);
     if (slug === default_branch) {
       partial.push("dev");
       push = true;
-    } else {
-      partial.push(slug);
     }
   }
 

@@ -28,7 +28,7 @@ test("main branch", () => {
   expect(meta("foobar", context, "main")).toStrictEqual({
     push: true,
     version: "sha-abcd123",
-    tags: ["foobar:sha-abcd123", "foobar:latest", "foobar:dev"],
+    tags: ["foobar:sha-abcd123", "foobar:latest", "foobar:main", "foobar:dev"],
   });
 });
 
