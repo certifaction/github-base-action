@@ -1,0 +1,27 @@
+---
+name: 'Certifaction base github action'
+description: 'Set base variables shared by all Certifaction github project workflows'
+branding:
+  icon: "minimize"
+  color: "blue"
+runs:
+  using: 'node12'
+  main: 'dist/index.js'
+
+inputs:
+  token:
+    description: 'The Github token to access the repository'
+    required: true
+  image:
+    description: 'The name of the Docker image to use as base name for tags'
+    required: true
+
+outputs:
+  version:
+    description: 'Generated Docker image version'
+  tags:
+    description: 'Generated Docker tags'
+  labels:
+    description: 'Generated Docker labels'
+  push:
+    description: 'True if the image must be pushed'
