@@ -1,29 +1,59 @@
+# Certifaction base github action
 
-
-
-
-
-npm i -g @vercel/ncc
-
-
-# Hello world javascript action
-
-This action prints "Hello World" or "Hello" + the name of a person to greet to the log.
+This github action will output docker version, tags and labels to be directly
+used by the standard `docker/build-push-action@v2` action.
 
 ## Inputs
 
-### `who-to-greet`
+### `token`
 
-**Required** The name of the person to greet. Default `"World"`.
+**Required** The github token to access the repository
+
+### `image`
+
+**Required** The docker image name
 
 ## Outputs
 
-### `time`
+### `version`
 
-The time we greeted you.
+The image version
 
-## Example usage
+### `tags`
 
-uses: actions/hello-world-javascript-action@v1.1
-with:
-  who-to-greet: 'Mona the Octocat'
+The list of tags to be applied to the image
+
+### `labels`
+
+The labels to be applied to the image
+
+### `push`
+
+True if the image must be pushed
+
+## Usage
+
+```
+docker-push:
+    runs-on: ubuntu-latest
+    services:
+      registry:
+        image: registry:2
+        ports:
+          - 5000:5000
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Certifaction base action
+        id: base-action
+        with:
+          image: your-image-name
+
+      - name: Build and push to local registry
+        uses: docker/build-push-action@v2
+        with:
+          push: ${{ steps.base-action.outputs.push }}
+          tags: ${{ steps.base-action.outputs.tags }}
+          labels: ${{ steps.base-action.outputs.labels }}
+```
