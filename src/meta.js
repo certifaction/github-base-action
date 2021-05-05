@@ -1,3 +1,5 @@
+import * as core from '@actions/core';
+
 const slugrefs = require("./slugrefs");
 const semver = require("semver");
 
