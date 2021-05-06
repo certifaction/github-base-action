@@ -77,7 +77,7 @@ test("prerelease", () => {
   });
 });
 
-test("erelease", () => {
+test("release", () => {
   const context = {
     ref: "refs/tags/v1.2.3",
     sha: "abcd123456789",
@@ -92,4 +92,8 @@ test("erelease", () => {
       "foobar:production",
     ],
   });
+});
+
+test("wrong-semver", () => {
+  expect(meta(null, null, null)).toBeUndefined();
 });
