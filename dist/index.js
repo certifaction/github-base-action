@@ -42,6 +42,9 @@ async function run() {
     _actions_core__WEBPACK_IMPORTED_MODULE_0__.endGroup();
 
     const meta = getMeta(image, _actions_github__WEBPACK_IMPORTED_MODULE_1__.context, repo.data.default_branch);
+    if (!meta) {
+      throw new Error('Cannot get metadata')
+    }
 
     _actions_core__WEBPACK_IMPORTED_MODULE_0__.startGroup(`Docker push image`);
     _actions_core__WEBPACK_IMPORTED_MODULE_0__.info(meta.push || false);
@@ -9104,6 +9107,7 @@ module.exports = labels;
 
 const slugrefs = __webpack_require__(9076);
 const semver = __webpack_require__(1383);
+const core = __webpack_require__(2186);
 
 function meta(image, context, default_branch) {
   if (image == "") {
@@ -9130,9 +9134,10 @@ function meta(image, context, default_branch) {
 
     if (!sver) {
       partial.push(slug);
-      core.warning(
+      core.error(
         `${slug} is not a valid semver for a release. More info: https://semver.org/`
       );
+      return;
     }
 
     if (sver) {

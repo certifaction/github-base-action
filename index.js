@@ -29,6 +29,9 @@ async function run() {
     core.endGroup();
 
     const meta = getMeta(image, github.context, repo.data.default_branch);
+    if (!meta) {
+      throw new Error('Cannot get metadata')
+    }
 
     core.startGroup(`Docker push image`);
     core.info(meta.push || false);

@@ -1,7 +1,6 @@
-import * as core from '@actions/core';
-
 const slugrefs = require("./slugrefs");
 const semver = require("semver");
+const core = require("@actions/core");
 
 function meta(image, context, default_branch) {
   if (image == "") {
@@ -28,9 +27,10 @@ function meta(image, context, default_branch) {
 
     if (!sver) {
       partial.push(slug);
-      core.warning(
+      core.error(
         `${slug} is not a valid semver for a release. More info: https://semver.org/`
       );
+      return;
     }
 
     if (sver) {
