@@ -10,7 +10,7 @@ async function run() {
     const image = core.getInput('image');
 
     const octokit = github.getOctokit(token)
-    const repo = await octokit.repos.get({
+    const repo = await octokit.rest.repos.get({
     ...github.context.repo
     });
     if (!repo || !repo.data) {
