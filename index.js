@@ -1,5 +1,5 @@
-import * as core from '@actions/core';
-import * as github from '@actions/github';
+const core = require('@actions/core');
+const github = require('@actions/github');
 const getMeta = require('./src/meta')
 const getLabels = require("./src/labels");
 

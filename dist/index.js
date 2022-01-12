@@ -9631,124 +9631,78 @@ module.exports = require("zlib");
 /******/ 	}
 /******/ 	
 /************************************************************************/
-/******/ 	/* webpack/runtime/compat get default export */
-/******/ 	(() => {
-/******/ 		// getDefaultExport function for compatibility with non-harmony modules
-/******/ 		__nccwpck_require__.n = (module) => {
-/******/ 			var getter = module && module.__esModule ?
-/******/ 				() => (module['default']) :
-/******/ 				() => (module);
-/******/ 			__nccwpck_require__.d(getter, { a: getter });
-/******/ 			return getter;
-/******/ 		};
-/******/ 	})();
-/******/ 	
-/******/ 	/* webpack/runtime/define property getters */
-/******/ 	(() => {
-/******/ 		// define getter functions for harmony exports
-/******/ 		__nccwpck_require__.d = (exports, definition) => {
-/******/ 			for(var key in definition) {
-/******/ 				if(__nccwpck_require__.o(definition, key) && !__nccwpck_require__.o(exports, key)) {
-/******/ 					Object.defineProperty(exports, key, { enumerable: true, get: definition[key] });
-/******/ 				}
-/******/ 			}
-/******/ 		};
-/******/ 	})();
-/******/ 	
-/******/ 	/* webpack/runtime/hasOwnProperty shorthand */
-/******/ 	(() => {
-/******/ 		__nccwpck_require__.o = (obj, prop) => (Object.prototype.hasOwnProperty.call(obj, prop))
-/******/ 	})();
-/******/ 	
-/******/ 	/* webpack/runtime/make namespace object */
-/******/ 	(() => {
-/******/ 		// define __esModule on exports
-/******/ 		__nccwpck_require__.r = (exports) => {
-/******/ 			if(typeof Symbol !== 'undefined' && Symbol.toStringTag) {
-/******/ 				Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' });
-/******/ 			}
-/******/ 			Object.defineProperty(exports, '__esModule', { value: true });
-/******/ 		};
-/******/ 	})();
-/******/ 	
 /******/ 	/* webpack/runtime/compat */
 /******/ 	
 /******/ 	if (typeof __nccwpck_require__ !== 'undefined') __nccwpck_require__.ab = __dirname + "/";
 /******/ 	
 /************************************************************************/
 var __webpack_exports__ = {};
-// This entry need to be wrapped in an IIFE because it need to be in strict mode.
+// This entry need to be wrapped in an IIFE because it need to be isolated against other modules in the chunk.
 (() => {
-"use strict";
-__nccwpck_require__.r(__webpack_exports__);
-/* harmony import */ var _actions_core__WEBPACK_IMPORTED_MODULE_0__ = __nccwpck_require__(2186);
-/* harmony import */ var _actions_core__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__nccwpck_require__.n(_actions_core__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _actions_github__WEBPACK_IMPORTED_MODULE_1__ = __nccwpck_require__(5438);
-/* harmony import */ var _actions_github__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__nccwpck_require__.n(_actions_github__WEBPACK_IMPORTED_MODULE_1__);
-
-
+const core = __nccwpck_require__(2186);
+const github = __nccwpck_require__(5438);
 const getMeta = __nccwpck_require__(9195)
 const getLabels = __nccwpck_require__(9234);
 
 async function run() {
   try {
     // Inputs
-    const token = _actions_core__WEBPACK_IMPORTED_MODULE_0__.getInput('token');
-    const image = _actions_core__WEBPACK_IMPORTED_MODULE_0__.getInput('image');
+    const token = core.getInput('token');
+    const image = core.getInput('image');
 
-    const octokit = _actions_github__WEBPACK_IMPORTED_MODULE_1__.getOctokit(token)
+    const octokit = github.getOctokit(token)
     const repo = await octokit.repos.get({
-    ..._actions_github__WEBPACK_IMPORTED_MODULE_1__.context.repo
+    ...github.context.repo
     });
     if (!repo || !repo.data) {
         throw new Error('Cannot get GitHub repository');
     }
 
-    _actions_core__WEBPACK_IMPORTED_MODULE_0__.startGroup(`Context info`);
-    _actions_core__WEBPACK_IMPORTED_MODULE_0__.info(`eventName: ${_actions_github__WEBPACK_IMPORTED_MODULE_1__.context.eventName}`);
-    _actions_core__WEBPACK_IMPORTED_MODULE_0__.info(`sha: ${_actions_github__WEBPACK_IMPORTED_MODULE_1__.context.sha}`);
-    _actions_core__WEBPACK_IMPORTED_MODULE_0__.info(`ref: ${_actions_github__WEBPACK_IMPORTED_MODULE_1__.context.ref}`);
-    _actions_core__WEBPACK_IMPORTED_MODULE_0__.info(`workflow: ${_actions_github__WEBPACK_IMPORTED_MODULE_1__.context.workflow}`);
-    _actions_core__WEBPACK_IMPORTED_MODULE_0__.info(`action: ${_actions_github__WEBPACK_IMPORTED_MODULE_1__.context.action}`);
-    _actions_core__WEBPACK_IMPORTED_MODULE_0__.info(`actor: ${_actions_github__WEBPACK_IMPORTED_MODULE_1__.context.actor}`);
-    _actions_core__WEBPACK_IMPORTED_MODULE_0__.info(`runNumber: ${_actions_github__WEBPACK_IMPORTED_MODULE_1__.context.runNumber}`);
-    _actions_core__WEBPACK_IMPORTED_MODULE_0__.info(`runId: ${_actions_github__WEBPACK_IMPORTED_MODULE_1__.context.runId}`);
-    _actions_core__WEBPACK_IMPORTED_MODULE_0__.endGroup();
+    core.startGroup(`Context info`);
+    core.info(`eventName: ${github.context.eventName}`);
+    core.info(`sha: ${github.context.sha}`);
+    core.info(`ref: ${github.context.ref}`);
+    core.info(`workflow: ${github.context.workflow}`);
+    core.info(`action: ${github.context.action}`);
+    core.info(`actor: ${github.context.actor}`);
+    core.info(`runNumber: ${github.context.runNumber}`);
+    core.info(`runId: ${github.context.runId}`);
+    core.endGroup();
 
-    const meta = getMeta(image, _actions_github__WEBPACK_IMPORTED_MODULE_1__.context, repo.data.default_branch);
+    const meta = getMeta(image, github.context, repo.data.default_branch);
     if (!meta) {
       throw new Error('Cannot get metadata')
     }
 
-    _actions_core__WEBPACK_IMPORTED_MODULE_0__.startGroup(`Docker push image`);
-    _actions_core__WEBPACK_IMPORTED_MODULE_0__.info(meta.push || false);
-    _actions_core__WEBPACK_IMPORTED_MODULE_0__.endGroup();
-    _actions_core__WEBPACK_IMPORTED_MODULE_0__.setOutput('push', meta.push || false);
+    core.startGroup(`Docker push image`);
+    core.info(meta.push || false);
+    core.endGroup();
+    core.setOutput('push', meta.push || false);
 
-    _actions_core__WEBPACK_IMPORTED_MODULE_0__.startGroup(`Docker image version`);
-    _actions_core__WEBPACK_IMPORTED_MODULE_0__.info(meta.version || '');
-    _actions_core__WEBPACK_IMPORTED_MODULE_0__.endGroup();
-    _actions_core__WEBPACK_IMPORTED_MODULE_0__.setOutput('version', meta.version || '');
+    core.startGroup(`Docker image version`);
+    core.info(meta.version || '');
+    core.endGroup();
+    core.setOutput('version', meta.version || '');
 
     // Docker tags
-    _actions_core__WEBPACK_IMPORTED_MODULE_0__.startGroup(`Docker tags`);
+    core.startGroup(`Docker tags`);
     for (let tag of meta.tags) {
-      _actions_core__WEBPACK_IMPORTED_MODULE_0__.info(tag);
+      core.info(tag);
     }
-    _actions_core__WEBPACK_IMPORTED_MODULE_0__.endGroup();
-    _actions_core__WEBPACK_IMPORTED_MODULE_0__.setOutput('tags', meta.tags.join(`\n`));
+    core.endGroup();
+    core.setOutput('tags', meta.tags.join(`\n`));
 
     // Docker labels
-    const labels = getLabels(_actions_github__WEBPACK_IMPORTED_MODULE_1__.context, repo.data, meta.version, new Date().toISOString());
-    _actions_core__WEBPACK_IMPORTED_MODULE_0__.startGroup(`Docker labels`);
+    const labels = getLabels(github.context, repo.data, meta.version, new Date().toISOString());
+    core.startGroup(`Docker labels`);
     for (let label of labels) {
-      _actions_core__WEBPACK_IMPORTED_MODULE_0__.info(label);
+      core.info(label);
     }
-    _actions_core__WEBPACK_IMPORTED_MODULE_0__.endGroup();
-    _actions_core__WEBPACK_IMPORTED_MODULE_0__.setOutput('labels', labels.join(`\n`));
+    core.endGroup();
+    core.setOutput('labels', labels.join(`\n`));
 
   } catch (error) {
-    _actions_core__WEBPACK_IMPORTED_MODULE_0__.setFailed(error.message);
+    core.setFailed(error.message);
   }
 }
 run();
